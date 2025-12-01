@@ -1,0 +1,50 @@
+services:
+  # Dependency validation service
+
+  xap-grid:
+    #image: gigaspaces/smart-cache-enterprise:16.4.3
+    image: routemeshlabs/grid-api-demo:17.1.2
+    container_name: xap-grid
+    command: host run-agent --manager --gsc=3 # replace parameters passed to docker entrypoint.sh (gs.sh)
+    ports:
+      - "8090:8090"
+      - "8099:8099"
+      - "4174:4174"
+      - "8200-8300:8200-8300"
+    environment:
+      GS_LICENSE: "tryme" # Use your license key
+      GS_HEAP: "2g"
+      GS_GSA_OPTIONS: "-Xms128m -Xmx128m"
+      GS_GSC_OPTIONS: "-Xms4096m -Xmx4096m -Dspring.profiles.active=giga_unsecured -Dcom.gs.zones=demo-local"
+    volumes:
+      - ./scripts:/opt/gigaspaces/scripts:ro
+    healthcheck:
+      test: ["CMD", "/bin/bash", "/opt/gigaspaces/scripts/healthcheck.sh"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+    restart: "no"
+    networks:
+      - xap-net
+
+
+  demo-api:
+    image: routemeshlabs/grid-api-demo:17.1.2
+    container_name: demo-api
+    entrypoint: ["/bin/sh", "-c", "echo 'Starting GigaSpaces...'; tail -f /dev/null"]
+    depends_on:
+      xap-grid:
+        condition: service_healthy
+    volumes:
+      - ./scripts:/opt/gigaspaces/deploy/scripts
+      - ./modules/pu-stateful/target/my-pu-stateful-0.1.jar:/opt/gigaspaces/deploy/my-pu-stateful-0.1.jar:ro
+    post_start:
+      - command: "/opt/gigaspaces/deploy/scripts/gsDeploy.sh"
+    restart: "no"
+    networks:
+      - xap-net
+
+networks:
+  xap-net:
+    driver: bridge

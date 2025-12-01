@@ -2,6 +2,8 @@
 
 A comprehensive testing and deployment interface for GigaSpaces XAP (eXtreme Application Platform) using containerized environments.
 
+**Note**: This project uses GigaSpaces XAP which has its own commercial licensing terms. The GigaSpaces software is not included in this repository's license and requires appropriate licensing from GigaSpaces for production use.
+
 ## Overview
 
 This project provides a Docker-based development and testing environment for GigaSpaces XAP 17.1.2, enabling developers to:
@@ -44,7 +46,7 @@ This will download and prepare all required dependencies (Commons Pool, Commons 
 ### 2. Build Docker Image
 
 ```bash
-docker build -t demo/demo-xap:17.1.2 .
+docker build -t routemeshlabs/grid-api-demo:17.1.2 .
 ```
 
 ### 3. Start Services
@@ -54,7 +56,7 @@ docker-compose up -d
 ```
 
 This will start:
-- **demo-xap**: Main GigaSpaces cluster with management and 3 GSCs (Grid Service Containers)
+- **xap-grid**: Main GigaSpaces cluster with management and 3 GSCs (Grid Service Containers)
 - **demo-api**: API service container for deployment tasks
 
 ### 4. Verify Deployment
@@ -101,14 +103,18 @@ mvn clean package
 ### Docker Operations
 
 ```bash
-# View logs
-docker-compose logs -f demo-xap
+
+# View API container logs
+docker-compose logs -f demo-api
+
+# View XAP logs
+docker-compose logs -f xap-grid
 
 # Stop services
 docker-compose down
 
 # Rebuild and restart
-docker-compose down && docker build -t demo/demo-xap:17.1.2 . && docker-compose up -d
+docker-compose down && docker build -t routemeshlabs/grid-api-demo:17.1.2 . && docker-compose up -d
 ```
 
 ## Development
