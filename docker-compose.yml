@@ -39,8 +39,8 @@ services:
     volumes:
       - ./scripts:/opt/gigaspaces/deploy/scripts
       - ./modules/pu-stateful/target/my-pu-stateful-0.1.jar:/opt/gigaspaces/deploy/my-pu-stateful-0.1.jar:ro
-    post_start:
-      - command: "/opt/gigaspaces/deploy/scripts/gsDeploy.sh"
+    #post_start:
+    #  - command: "/opt/gigaspaces/deploy/scripts/gsDeploy.sh"
     restart: "no"
     networks:
       - xap-net
