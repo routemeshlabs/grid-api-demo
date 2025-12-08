@@ -14,6 +14,7 @@
     <description>Project to manage dependencies for XAP API deployment</description>
     
     <modules>
+        <module>modules/pu-model</module>
         <module>modules/pu-stateful</module>
     </modules>
     
@@ -63,6 +64,7 @@
                             <overWriteReleases>false</overWriteReleases>
                             <overWriteSnapshots>false</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
+                            <excludeReactor>true</excludeReactor>
                         </configuration>
                     </execution>
                 </executions>

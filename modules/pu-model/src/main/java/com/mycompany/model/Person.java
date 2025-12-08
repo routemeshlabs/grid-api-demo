@@ -1,4 +1,4 @@
-package com.mycompany.app;
+package com.mycompany.model;
 
 import com.gigaspaces.annotation.pojo.SpaceId;
 import com.gigaspaces.annotation.pojo.SpaceIndex;
