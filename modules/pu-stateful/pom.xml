@@ -67,6 +67,29 @@
 
     <build>
         <plugins>
+            <!-- Override parent copy-dependencies to exclude pu-model (reactor artifact) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <excludeReactor>true</excludeReactor>
+                            <excludeArtifactIds>pu-model</excludeArtifactIds>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- Assembly plugin to create jar with embedded pu-model jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
