@@ -1,3 +1,3 @@
 #!/bin/bash
 set -x 
-docker build --no-cache -t demo/demo-xap:17.1.2 .
+docker build --no-cache -t routemeshlabs/grid-api-demo:17.1.2 .

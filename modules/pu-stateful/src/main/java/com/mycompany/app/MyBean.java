@@ -22,6 +22,8 @@ import org.openspaces.core.*;
 import org.openspaces.core.space.status.*;
 import org.openspaces.core.cluster.*;
 import com.gigaspaces.client.WriteModifiers;
+import com.mycompany.model.Person;
+
 import org.springframework.beans.factory.annotation.Value;
 
 public class MyBean {

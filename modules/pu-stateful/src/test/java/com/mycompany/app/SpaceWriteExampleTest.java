@@ -5,6 +5,7 @@ import org.openspaces.core.GigaSpace;
 import org.openspaces.core.GigaSpaceConfigurer;
 import org.openspaces.core.space.EmbeddedSpaceConfigurer;
 import com.gigaspaces.client.WriteModifiers;
+import com.mycompany.model.Person;
 
 import static org.junit.Assert.*;
 
